@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
     },
     profilePic: {
       type: String,
-      default: "",
+      default: "https://www.svgrepo.com/show/316976/profile.svg",
     },
   },
   { timestamps: true }
