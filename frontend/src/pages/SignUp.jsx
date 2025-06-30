@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signupBg, facebook, google } from "../utils/images.jsx";
 import { useAuthStore } from "../store/useAuthStore.jsx";
+import toast from "react-hot-toast";
 import { CiUser } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
@@ -11,24 +12,32 @@ export default function SignUp() {
     fullName: "",
     email: "",
     password: "",
-  })
-  const {signUp, isSigningUp}=useAuthStore();
+  });
+  const { signUp, isSigningUp, signUpSuccess } = useAuthStore();
+  const navigate =useNavigate()
 
-  const handleChange=(e)=>{
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]:e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  const handleFormSubmit=async(e)=>{
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if(!formData.fullName || !formData.email || !formData.password){
+    if (!formData.fullName || !formData.email || !formData.password || formData.password.length < 6 ) {
       return toast.error("All fields are required");
     }
+   await signUp(formData);
+  };
 
-    signupBg(formData)
+  useEffect(() => {
+  if (signUpSuccess) {
+    navigate('/sign-in');
+    useAuthStore.setState({ signUpSuccess: false }); // reset it so it doesn't auto-redirect again
   }
+}, [signUpSuccess, navigate]);
+
   return (
     <section className="relative  h-full w-full">
       <div className="absolute inset-0 -scale-z-105 flex  h-full w-full">
@@ -37,7 +46,7 @@ export default function SignUp() {
           <img
             src={signupBg}
             alt="bg-image"
-            className="h-full w-full object-cover grayscale-100"
+            className="h-full w-full object-cover "
           />
         </div>
       </div>
@@ -52,12 +61,14 @@ export default function SignUp() {
             Sign in with email and pasword
           </p>
 
-          <form className="relative w-full z-100 flex flex-col gap-4 py-7 border-b border-gray-600">
+          <form className="relative w-full z-100 flex flex-col gap-4 py-7 border-b border-gray-600" autoComplete="on">
             <div className="form-item text-gray-400 flex items-center gap-2 px-3 py-2 border border-gray-400/10 rounded-md bg-black/10 backdrop-blur">
               <span className="flex-center">
                 <CiUser />
               </span>
               <input
+                value={formData.fullName}
+                onChange={(e) => handleChange(e)}
                 className="max-w-[300px]"
                 placeholder="Full Name"
                 type="text"
@@ -70,6 +81,8 @@ export default function SignUp() {
                 <MdEmail />
               </span>
               <input
+                value={formData.email}
+                onChange={(e) => handleChange(e)}
                 className="max-w-[300px]"
                 placeholder="Youremail@gmail.com"
                 type="email"
@@ -82,6 +95,8 @@ export default function SignUp() {
                 <AiFillLock />
               </span>
               <input
+                value={formData.password}
+                onChange={(e) => handleChange(e)}
                 className="max-w-[300px]"
                 placeholder="password"
                 type="password"
@@ -90,7 +105,7 @@ export default function SignUp() {
               />
             </div>
 
-            <button className="gradient-button text-white">Sign Up</button>
+            <button className="gradient-button text-white" onClick={handleFormSubmit}>{isSigningUp?"Signing Up...":"Sign Up"}</button>
           </form>
 
           {/* other content  */}
@@ -99,29 +114,41 @@ export default function SignUp() {
             <div className="flex w-full gap-4 flex-wrap  items-center">
               <button className="flex-1  flex justify-center items-center  gradient-button ">
                 <span>
-                  <img src={facebook} alt="social-icon" className="h-6 w-6 object-cover" />
+                  <img
+                    src={facebook}
+                    alt="social-icon"
+                    className="h-6 w-6 object-cover"
+                  />
                 </span>
                 <span className="ml-3">Facebook</span>
               </button>
               <button className="flex-1 flex justify-center items-center gradient-button ">
                 <span>
-                  <img src={google} alt="social-icon" className="h-6 w-6 object-cover" />
+                  <img
+                    src={google}
+                    alt="social-icon"
+                    className="h-6 w-6 object-cover"
+                  />
                 </span>
                 <span className="ml-3">Google</span>
               </button>
             </div>
             <p className="text-white text-body-sm">
               Already have an account?{" "}
-              <Link to="/sign-in" className="transition-default text-orange-400 hover:text-orange-500">
+              <Link
+                to="/sign-in"
+                className="transition-default text-orange-400 hover:text-orange-500"
+              >
                 Sign In
               </Link>
             </p>
           </div>
         </div>
 
-
         <div className="hidden xl:block absolute bottom-0 left-0 py-10 px-10 max-w-[700px]">
-              <h1 className="uppercase text-white  font-heading font-bold">Sign in to your <span className="gradient-text">adventure</span> </h1>
+          <h1 className="uppercase text-white  font-heading font-bold">
+            Sign in to your <span className="gradient-text">adventure</span>{" "}
+          </h1>
         </div>
       </div>
     </section>

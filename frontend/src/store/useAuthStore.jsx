@@ -1,11 +1,15 @@
 import { axiosInstance } from "../utils/axios";
 import { create } from "zustand";
+import { Navigate } from "react-router-dom";
 import toast from "react-hot-toast";
+
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
   isSigningUp: false,
+  signUpSuccess: false,
   isSigningIn: false,
+  signInSuccess: false,
   isSigningOut: false,
   isCheckingAuth: true,
 
@@ -24,10 +28,18 @@ export const useAuthStore = create((set, get) => ({
     set({ isSigningUp: true });
     try {
       const res = await axiosInstance.post("/auth/signup", data);
+      //axios handles errors directly in the catch block so this wont work
+      //   if(!res.ok){
+      //     console.log(res.data.message);
+      //     return toast.error(res.data.message);
+      //   }
+      set({signUpSuccess: true});
       toast.success("user registered successfully");
+      
     } catch (error) {
-      toast.error(error.message);
-      set({ authUser: null });
+      const message = error.response?.data?.message || "Something went wrong";
+      toast.error(message);
+      set({ authUser: null, signUpSuccess: false });
     } finally {
       set({ isSigningUp: false });
     }
@@ -38,8 +50,10 @@ export const useAuthStore = create((set, get) => ({
       const res = await axiosInstance.post("/auth/login", data);
       toast.success("logged in successfully");
       set({ authUser: res.data.user });
+      Navigate('/')
     } catch (error) {
-      toast.error(error.message);
+      const message = error.response?.data?.message || "Something went wrong";
+      toast.error(message);
       set({ authUser: null });
     } finally {
       set({ isSigningIn: false });

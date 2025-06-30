@@ -5,12 +5,15 @@ import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore } from "./store/useAuthStore.jsx";
 import "./index.css"
 
 export default function App(){
-  const auth=false
+  const {authUser, checkAuth}=useAuthStore();
+
   useEffect(() => {
     //check auth everytime page refreshes
+    checkAuth();
   }, []);
   return (
     <>
@@ -19,8 +22,8 @@ export default function App(){
         <Route element={<PrivateRoute />}>
             <Route exact path='/' element={<Home/>}/>
         </Route>
-        <Route path='/sign-up' element={auth?<Navigate to="/"/>:<SignUp/>}/>
-        <Route path='/sign-in' element={auth?<Navigate to="/"/>:<SignIn/>}/>
+        <Route path='/sign-up' element={authUser===null?<SignUp/>:<Navigate to="/" />}/>
+        <Route path='/sign-in' element={authUser===null?<SignIn/>:<Navigate to="/" />}/>
       </Routes>
     </BrowserRouter>
     <Toaster/>
