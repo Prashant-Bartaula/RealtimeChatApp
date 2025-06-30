@@ -1,11 +1,34 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { signupBg, facebook, google } from "../utils/images.jsx";
+import { useAuthStore } from "../store/useAuthStore.jsx";
 import { CiUser } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  })
+  const {signUp, isSigningUp}=useAuthStore();
+
+  const handleChange=(e)=>{
+    setFormData({
+      ...formData,
+      [e.target.name]:e.target.value
+    })
+  }
+
+  const handleFormSubmit=async(e)=>{
+    e.preventDefault();
+    if(!formData.fullName || !formData.email || !formData.password){
+      return toast.error("All fields are required");
+    }
+
+    signupBg(formData)
+  }
   return (
     <section className="relative  h-full w-full">
       <div className="absolute inset-0 -scale-z-105 flex  h-full w-full">
@@ -38,8 +61,8 @@ export default function SignUp() {
                 className="max-w-[300px]"
                 placeholder="Full Name"
                 type="text"
-                name="fullname"
-                id="fullname"
+                name="fullName"
+                id="fullName"
               />
             </div>
             <div className="form-item text-gray-400 flex items-center gap-2 px-3 py-2 border border-gray-400/10 rounded-md bg-black/10 backdrop-blur">

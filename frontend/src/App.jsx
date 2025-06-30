@@ -4,6 +4,7 @@ import {PrivateRoute} from "../src/components/PrivateRoute.jsx";
 import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SignIn from "./pages/SignIn.jsx";
+import { Toaster } from "react-hot-toast";
 import "./index.css"
 
 export default function App(){
@@ -12,6 +13,7 @@ export default function App(){
     //check auth everytime page refreshes
   }, []);
   return (
+    <>
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute />}>
@@ -21,5 +23,7 @@ export default function App(){
         <Route path='/sign-in' element={auth?<Navigate to="/"/>:<SignIn/>}/>
       </Routes>
     </BrowserRouter>
+    <Toaster/>
+    </>
   );
 }
