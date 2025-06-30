@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import {PrivateRoute} from "../src/components/PrivateRoute.jsx";
 import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
+import SignIn from "./pages/SignIn.jsx";
 import "./index.css"
 
 export default function App(){
@@ -17,6 +18,7 @@ export default function App(){
             <Route exact path='/' element={<Home/>}/>
         </Route>
         <Route path='/sign-up' element={auth?<Navigate to="/"/>:<SignUp/>}/>
+        <Route path='/sign-in' element={auth?<Navigate to="/"/>:<SignIn/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -5,7 +5,7 @@ import { CiUser } from "react-icons/ci";
 import { MdEmail } from "react-icons/md";
 import { AiFillLock } from "react-icons/ai";
 
-export default function SignUp() {
+export default function SignIn() {
   return (
     <section className="relative  h-full w-full">
       <div className="absolute inset-0 -scale-z-105 flex  h-full w-full">
@@ -14,7 +14,7 @@ export default function SignUp() {
           <img
             src={signupBg}
             alt="bg-image"
-            className="h-full w-full object-cover grayscale-100"
+            className="h-full w-full object-cover"
           />
         </div>
       </div>
@@ -23,25 +23,13 @@ export default function SignUp() {
       <div className="relative h-full w-full z-100 backdrop-blur-md md:backdrop-blur-none">
         <div className="flex flex-col h-full justify-center  gap-4 px-4 md:px-8 mx-auto md:mx-0 md:ml-auto  max-w-[500px] md:max-w-[600px] md:backdrop-blur-sm">
           <h1 className="font-bold font-heading uppercase gradient-text">
-            Sign Up
+            Sign In
           </h1>
           <p className="text-xs font-body font-semibold text-gray-400">
             Sign in with email and pasword
           </p>
 
           <form className="relative w-full z-100 flex flex-col gap-4 py-7 border-b border-gray-600">
-            <div className="form-item text-gray-400 flex items-center gap-2 px-3 py-2 border border-gray-400/10 rounded-md bg-black/10 backdrop-blur">
-              <span className="flex-center">
-                <CiUser />
-              </span>
-              <input
-                className="max-w-[300px]"
-                placeholder="Full Name"
-                type="text"
-                name="fullname"
-                id="fullname"
-              />
-            </div>
             <div className="form-item text-gray-400 flex items-center gap-2 px-3 py-2 border border-gray-400/10 rounded-md bg-black/10 backdrop-blur">
               <span className="flex-center">
                 <MdEmail />
@@ -67,7 +55,7 @@ export default function SignUp() {
               />
             </div>
 
-            <button className="gradient-button text-white">Sign Up</button>
+            <button className="gradient-button text-white">Sign In</button>
           </form>
 
           {/* other content  */}
@@ -88,9 +76,9 @@ export default function SignUp() {
               </button>
             </div>
             <p className="text-white text-body-sm">
-              Already have an account?{" "}
-              <Link to="/sign-in" className="transition-default text-orange-400 hover:text-orange-500">
-                Sign In
+              Don't have an account?{" "}
+              <Link to="/sign-up" className="transition-default text-orange-400 hover:text-orange-500">
+                Sign Up
               </Link>
             </p>
           </div>
