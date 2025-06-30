@@ -1,8 +1,23 @@
+import { useState, useEffect } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import {PrivateRoute} from "../src/components/PrivateRoute.jsx";
+import Home from "./pages/Home.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import "./index.css"
 
-export default function () {
+export default function App(){
+  const auth=false
+  useEffect(() => {
+    //check auth everytime page refreshes
+  }, []);
   return (
-    <div >
-      <h1 >Realtime Chat App</h1>
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route element={<PrivateRoute />}>
+            <Route exact path='/' element={<Home/>}/>
+        </Route>
+        <Route path='/sign-up' element={auth?<Navigate to="/"/>:<SignUp/>}/>
+      </Routes>
+    </BrowserRouter>
+  );
 }

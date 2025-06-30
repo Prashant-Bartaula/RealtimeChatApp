@@ -2,10 +2,61 @@
 @import url("https://fonts.googleapis.com/css2?family=Capriola&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+Devanagari:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Rubik+Vinyl&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap");
 @import "tailwindcss";
 
-@layer base{
-    @import "./css/base.css";
+@layer base {
+  @import "./css/base.css";
+}
+@layer utilities {
+    .flex-center{
+        @apply flex items-center justify-center;
+    }
+    .transition-default{
+      @apply transition-all duration-300 ease-in-out;
+    }
+    
+  .gradient-text {
+    background-image: linear-gradient(to bottom, #ffa222, #2c2c2c);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+  }
+  .gradient-button{
+    background-image: linear-gradient(to bottom right, #0f0f0f, #353942);
+    font-weight: 600;
+    border-radius: 15px;
+    color:var(--color-white);
+    padding: 10px 10px;
+    transition: background-image 1s ease-in-out ;
+  }
+  .gradient-button:hover{
+    background-image: linear-gradient(to bottom right, #353942, #0f0f0f);
+  }
+  .gradient-social-button{
+     background-image: linear-gradient(to bottom right, #0f0f0f, #353942);
+    font-weight: 600;
+    border-radius: 12px;
+    color:var(--color-white);
+    padding: 10px 1px;
+    transition: background-image 1s ease-in-out ;
+  }
 }
 
-@themes {
+@theme {
+  --color-signUpBg: #2A2627;
+  --color-white:#e6e6e6;
 
+  /* font families  */
+  --font-heading: "Capriola", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  /* font size  */
+  --text-body: 18px;
+  --text-body-sm: 14px;
+
+  /* breakpoints  */
+  --breakpoint-xs: 300px; /* Extra small mobile */
+  --breakpoint-sm: 550px;
+
+  /* box shadow  */
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-float: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
 }
