@@ -1,7 +1,19 @@
 import {logo} from "../utils/images"
 import { Link } from "react-router-dom"
+import { useAuthStore } from "../store/useAuthStore"
+import { useEffect } from "react";
 
 export default function Header() {
+  const {logOut, signOutSuccess}=useAuthStore();
+  const handleLogout=()=>{
+      logOut();
+  }
+
+  useEffect(() => {
+    if (signOutSuccess) {
+      useAuthStore.setState({ signOutSuccess: false }); // reset it so it doesn't auto-redirect again
+    }
+  }, [signOutSuccess])
   return (
 
     <div className="px-4 sm:px-6 md:px-10 py-5 bg-signUpBg flex justify-between gap-5 shadow-subtle h-[100px]">
@@ -19,7 +31,7 @@ export default function Header() {
             </div>
 
         {/* logout button  */}
-        <button className="bg-transparent text-gray-300 border transition-all duration-300 ease-linear border-white/10 hover:border-white/50 hover:text-white  rounded-2xl px-4 py-2">Log out</button>
+        <button className="bg-transparent text-gray-300 border transition-all duration-300 ease-linear border-white/10 hover:border-white/50 hover:text-white  rounded-2xl px-4 py-2" onClick={handleLogout}>Log out</button>
         </div>
     </div>
   )
