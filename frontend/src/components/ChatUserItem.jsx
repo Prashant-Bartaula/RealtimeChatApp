@@ -1,11 +1,18 @@
+import {useGlobalStateStore} from "../store/useGlobalStateStore";
 
 export default function ChatUserItem() {
+  const { toggleProfileView}=useGlobalStateStore();
+  const handleClick=(e)=>{
+    e.stopPropagation();
+    toggleProfileView();
+  }
+
   return (
     <div className="flex justify-between items-center gap-2 px-3 py-4 bg-sky-100/70 hover:bg-sky-100/70 cursor-pointer rounded-xl">
       {/* content  */}
       <div className="flex items-center gap-2">
         {/* image wrap  */}
-        <div className="flex-center w-[45px] h-[45px] rounded-full overflow-hidden">
+        <div className="flex-center w-[45px] h-[45px] rounded-full overflow-hidden" onClick={(e)=>handleClick(e)}>
           <img
             src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
             alt="profile-icon"

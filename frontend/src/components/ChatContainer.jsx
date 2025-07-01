@@ -2,10 +2,10 @@ import { MdSend } from "react-icons/md";
 
 export default function ChatContainer() {
   return (
-    <div className="grow px-3 py-5 flex flex-col gap-3">
+    <div className="grow px-8 py-5 flex flex-col gap-3">
       {/* messages  */}
       <div className="flex grow flex-col gap-8 font-body font-light text-gray-700">
-        
+
         {/* senders chat  */}
         <div className="flex flex-col items-end gap-3">
 
