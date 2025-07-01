@@ -1,11 +1,10 @@
 import {logo} from "../utils/images"
-import { AiFillProfile } from "react-icons/ai"
 import { Link } from "react-router-dom"
 
 export default function Header() {
   return (
 
-    <div className="px-4 sm:px-6 md:px-10 py-5 bg-signUpBg flex justify-between gap-5">
+    <div className="px-4 sm:px-6 md:px-10 py-5 bg-signUpBg flex justify-between gap-5 shadow-subtle h-[100px]">
         {/* logo wrapper  */}
         <div className='flex-center'>
                 <img src={logo} alt="logo"  className="w-[180px]"/>

@@ -42,6 +42,7 @@
 
 @theme {
   --color-signUpBg: #2A2627;
+  --color-secondaryBg:#F5F5F5;
   --color-white:#e6e6e6;
 
   /* font families  */
@@ -57,6 +58,6 @@
   --breakpoint-sm: 550px;
 
   /* box shadow  */
-  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-subtle: 0 2px 6px rgba(18, 16, 17, 0.4);
   --shadow-float: 0 4px 12px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
 }
