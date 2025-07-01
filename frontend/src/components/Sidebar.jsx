@@ -11,7 +11,7 @@ export default function Sidebar() {
     }
 
   return (
-    <div className="grow max-w-[400px] px-7 py-7 flex flex-col gap-10">
+    <div className=" w-[400px]  px-7 py-7 flex flex-col gap-10 border-r border-gray-200">
       {/* your profile  */}
       <div className="flex gap-4 items-center">
         {/* image wrap  */}
@@ -54,7 +54,7 @@ export default function Sidebar() {
       </form>
 
       {/* chat list container */}
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 grow min-h-0">
             <h6 className="text-gray-800 font-medium font-body">Chats</h6>
             <div className="flex gap-8 text-start text-gray-800 ">
                 <button onClick={(e)=>handleTabChange(e)} className={`cursor-pointer  ${chatTab === 'dm' ? 'border-sky-500 border-b-[2px]' : ''}`} id="dm">Dm</button>
@@ -62,9 +62,7 @@ export default function Sidebar() {
             </div>
 
             {/* chat user item  container*/}
-            <div className="flex flex-col gap-1  mt-4">
-                <ChatUserItem/>
-                <ChatUserItem/>
+            <div className="flex flex-col overflow-auto min-h-0 gap-1  mt-4">
                 <ChatUserItem/>
             </div>
       </div>
