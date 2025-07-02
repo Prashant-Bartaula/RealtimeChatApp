@@ -6,10 +6,15 @@ import { useChatStore } from "../store/useChatStore";
 
 export default function Sidebar() {
     const [chatTab, setChatTab] = useState('dm');
+    const [activeChatId, setActiveChatId] = useState(null);
     const {isUsersLoading, users, getUsers}=useChatStore();
 
     const handleTabChange=(e)=>{
         setChatTab(e.target.id)
+    }
+
+    const handleChatClick=(id)=>{
+      setActiveChatId(id);
     }
 
     useEffect(()=>{
@@ -71,7 +76,7 @@ export default function Sidebar() {
             <div className="flex flex-col overflow-auto min-h-0 gap-1  mt-4">
               {users.map((item, index)=>{
                 return(
-                  <ChatUserItem key={index} user={item}/>
+                  <ChatUserItem key={index} id={index} isSelected={activeChatId === index} handleChatClick={handleChatClick} user={item}/>
                 )
               })}
             </div>

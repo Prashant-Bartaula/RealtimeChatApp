@@ -1,19 +1,24 @@
+import { useState } from "react";
 import {useGlobalStateStore} from "../store/useGlobalStateStore";
 
-export default function ChatUserItem({user}) {
-  const { toggleProfileView, setProfileViewData}=useGlobalStateStore();
-  const handleClick=(e)=>{
+export default function ChatUserItem({user, id, handleChatClick, isSelected}) {
+
+  const { toggleProfileView, setProfileViewData, setChatViewActive}=useGlobalStateStore();
+
+  const handleChatView=(e)=>{
     e.stopPropagation();
+    handleChatClick(id);
     setProfileViewData(user);
     toggleProfileView();
+    setChatViewActive(user);
   }
 
   return (
-    <div className="flex justify-between items-center gap-2 px-3 py-4 bg-sky-100/70 hover:bg-sky-100/70 cursor-pointer rounded-xl">
+    <div className={`flex justify-between items-center gap-2 px-3 py-4 ${isSelected?'bg-sky-100/70':''}  hover:bg-sky-100/70 cursor-pointer rounded-xl`} onClick={handleChatView}>
       {/* content  */}
       <div className="flex items-center gap-2">
         {/* image wrap  */}
-        <div className="flex-center w-[45px] h-[45px] rounded-full overflow-hidden" onClick={(e)=>handleClick(e)}>
+        <div className="flex-center w-[45px] h-[45px] rounded-full overflow-hidden">
           <img
             src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
             alt="profile-icon"

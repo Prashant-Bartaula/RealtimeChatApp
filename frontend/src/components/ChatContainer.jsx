@@ -1,8 +1,11 @@
-import { MdSend } from "react-icons/md";
+import { useState } from "react";
+import { useGlobalStateStore } from "../store/useGlobalStateStore";
+import MessageInput from "./MessageInput";
 
 export default function ChatContainer() {
-  return (
-    <div className="grow px-8 py-2 flex flex-col gap-5">
+  const {chatviewActive, profileViewData }=useGlobalStateStore();
+
+  return (chatviewActive.state?(<div className="grow px-8 py-2 flex flex-col gap-5">
       {/* messages  */}
       <div className="flex grow flex-col gap-8 overflow-auto font-body font-light text-gray-700">
 
@@ -88,19 +91,11 @@ export default function ChatContainer() {
       </div>
 
       {/* input message  */}
-      <div className="flex justify-between items-center shadow-float px-4 py-3 rounded-2xl">
-        <input
-          className="grow max-w-[500px] bg-sky-100/30 rounded-2xl"
-          type="text"
-          placeholder="Type a message..."
-          name="message"
-          id="message"
-        />
-
-        <button>
-          <MdSend size={20} />
-        </button>
-      </div>
-    </div>
-  );
+      <MessageInput user={profileViewData} />
+    </div>):(<div className="grow px-8 py-2 flex-center  gap-5">
+        
+        <div className="flex flex-col">
+            <h3>Select user to start chatting...</h3>
+        </div>
+    </div>));
 }

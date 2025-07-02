@@ -20,4 +20,14 @@ export const useChatStore = create((set, get) => ({
       set({ isUsersLoading: false });
     }
   },
+  sendMessage:async(data, receiverId)=>{
+    try {
+        const res=await axiosInstance.post(`/messages/sendMessage/${receiverId}`, data);
+        toast.success(res.data.message);
+    } catch (error) {
+      const message = error.response?.data?.message || "Something went wrong";
+      toast.error(message);
+    } 
+    },
+
 }));

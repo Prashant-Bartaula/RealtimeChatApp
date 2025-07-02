@@ -18,3 +18,33 @@ export const getUsers = async (req, res) => {
     });
   }
 };
+
+
+export const sendMesasge=async(req, res)=>{
+  const {receiverId}=req.params;
+  const {text}=req.body;
+  const senderId=req.user._id;
+
+  if(!text) return res.status(400).json({message:"All fields are required"})
+  try {
+    const message=await Message.create({
+      senderId,
+      receiverId,
+      text
+    })
+    if(!message){
+      return res.status(400).json({message:"Invalid message data"});
+    }
+    await message.save();
+
+    res.status(200).json({
+      message:"Message sent successfully",
+    });
+    
+  } catch (error) {
+    console.log("Error in sendMesasge controller", error.message);
+    res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
