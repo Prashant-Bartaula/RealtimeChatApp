@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
 import ChatUserItem from "../components/ChatUserItem";
 import { useChatStore } from "../store/useChatStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 export default function Sidebar() {
     const [chatTab, setChatTab] = useState('dm');
     const [activeChatId, setActiveChatId] = useState(null);
     const {isUsersLoading, users, getUsers}=useChatStore();
+    const {authUser}=useAuthStore();
 
     const handleTabChange=(e)=>{
         setChatTab(e.target.id)
@@ -37,9 +39,9 @@ export default function Sidebar() {
         {/* username and email  */}
         <div className="flex flex-col ">
           <p className="font-medium font-body text-lg leading-[15px] text-gray-800">
-            Prashant Bartaula
+           {authUser?.fullName}
           </p>
-          <span className="text-gray-500">user@gmail.com</span>
+          <span className="text-gray-500">{authUser?.email}</span>
 
           {/* active status toggle  */}
           <p className="mt-2 text-gray-400 text-sm">

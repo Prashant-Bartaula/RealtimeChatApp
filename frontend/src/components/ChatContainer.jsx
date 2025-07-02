@@ -1,92 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGlobalStateStore } from "../store/useGlobalStateStore";
+import { useChatStore } from "../store/useChatStore";
 import MessageInput from "./MessageInput";
+import { formatTime } from "../utils/formatTime";
 
 export default function ChatContainer() {
   const {chatviewActive, profileViewData }=useGlobalStateStore();
+  const {messages, getMessages}=useChatStore();
+
+  useEffect(() => {
+    if(chatviewActive.state===true && profileViewData){
+      getMessages(profileViewData._id);
+    }
+  }, [profileViewData]);
+
+
 
   return (chatviewActive.state?(<div className="grow px-8 py-2 flex flex-col gap-5">
       {/* messages  */}
-      <div className="flex grow flex-col gap-8 overflow-auto font-body font-light text-gray-700">
+      <div className="flex grow flex-col justify-end gap-6 overflow-auto font-body font-light text-gray-700">
 
-        {/* senders chat  */}
-        <div className="flex flex-col items-end gap-3">
-
-          {/* messages  */}
-          <div className="relative max-w-[600px] flex items-center gap-2 bg-gray-200/80 p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Hello prashant bartaula{" "}
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
+      {messages.map((message, index) => (
+        message.senderId !== profileViewData._id ? (
+          <div className="flex flex-col items-end gap-3" key={index}>
+            <div className="relative max-w-[600px] flex items-center gap-2 bg-gray-200/80 p-3 rounded-xl">
+              <p className="py-1 pl-2 pr-[60px] break-all">
+                {message.text}
+              </p>
+              <span className="absolute bottom-1 right-2 text-xs">
+                {formatTime(message.createdAt)}
+              </span>
+            </div>
           </div>
-          <div className="relative max-w-[600px] flex items-center gap-2 bg-gray-200/80 p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae velit, sint, repellat aliquid, veniam a quas
-              consequuntur id sit facere assumenda maiores est nemo at? Porro
-              possimus incidunt nostrum.{" "}
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
+        ) : (
+          <div className="flex flex-col items-start gap-3" key={index}>
+            <div className="relative max-w-[600px] flex items-center gap-2 shadow-md p-3 rounded-xl">
+              <p className="py-1 pl-2 pr-[60px] break-all">
+                {message.text}
+              </p>
+              <span className="absolute bottom-1 right-2 text-xs">
+                {formatTime(message.createdAt)}
+              </span>
+            </div>
           </div>
-        </div>
-
-        {/* receivers chat  */}
-        <div className="flex flex-col items-start gap-3">
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae velit, sint, repellat aliquid, veniam a quas
-              consequuntur id sit facere assumenda maiores est nemo at? Porro
-              possimus incidunt nostrum.{" "}
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae 
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-        </div>
-        {/* receivers chat  */}
-        <div className="flex flex-col items-start gap-3">
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae velit, sint, repellat aliquid, veniam a quas
-              consequuntur id sit facere assumenda maiores est nemo at? Porro
-              possimus incidunt nostrum.{" "}
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae 
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-        </div>
-        {/* receivers chat  */}
-        <div className="flex flex-col items-start gap-3">
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae velit, sint, repellat aliquid, veniam a quas
-              consequuntur id sit facere assumenda maiores est nemo at? Porro
-              possimus incidunt nostrum.{" "}
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-          <div className="relative max-w-[600px] flex items-center gap-2 shadow-lg p-3 rounded-xl">
-            <p className="py-1 pl-2 pr-[60px] break-all">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptatem vitae 
-            </p>
-            <span className="absolute bottom-1 right-2 text-xs">11:45</span>
-          </div>
-        </div>
+        )
+      ))}
 
       </div>
 
