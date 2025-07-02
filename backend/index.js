@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import {app, server} from './utils/socket.js';
 import authRoutes from './routes/authRoutes.js'
+import messageRoutes from './routes/messageRoutes.js'
 import connectDB from './utils/db.js'
 
 
@@ -21,6 +22,7 @@ app.use(cors({
 
 //routes 
 app.use('/api/auth', authRoutes);
+app.use('/api/messages', messageRoutes )
 
 
 server.listen(PORT, ()=>{

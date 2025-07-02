@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdSearch } from "react-icons/md";
 import ChatUserItem from "../components/ChatUserItem";
+import { useChatStore } from "../store/useChatStore";
 
 export default function Sidebar() {
     const [chatTab, setChatTab] = useState('dm');
+    const {isUsersLoading, users, getUsers}=useChatStore();
 
     const handleTabChange=(e)=>{
         setChatTab(e.target.id)
     }
+
+    useEffect(()=>{
+      getUsers();
+    },[])
 
   return (
     <div className=" w-[400px]  px-7 py-7 flex flex-col gap-10 border-r border-gray-200">
@@ -63,7 +69,11 @@ export default function Sidebar() {
 
             {/* chat user item  container*/}
             <div className="flex flex-col overflow-auto min-h-0 gap-1  mt-4">
-                <ChatUserItem/>
+              {users.map((item, index)=>{
+                return(
+                  <ChatUserItem key={index} user={item}/>
+                )
+              })}
             </div>
       </div>
     </div>

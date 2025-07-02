@@ -1,9 +1,10 @@
 import {useGlobalStateStore} from "../store/useGlobalStateStore";
 
-export default function ChatUserItem() {
-  const { toggleProfileView}=useGlobalStateStore();
+export default function ChatUserItem({user}) {
+  const { toggleProfileView, setProfileViewData}=useGlobalStateStore();
   const handleClick=(e)=>{
     e.stopPropagation();
+    setProfileViewData(user);
     toggleProfileView();
   }
 
@@ -23,7 +24,7 @@ export default function ChatUserItem() {
         {/* username  */}
         <div className="flex flex-col gap-1 font-body itemce">
           <p className="font-medium font-body text-[17px] leading-[15px]  text-gray-800">
-            Prashant Bartaula
+            {user?.fullName}
           </p>
           <span className="text-gray-400/80 font-medium text-[13px]">
             Hi there sapana

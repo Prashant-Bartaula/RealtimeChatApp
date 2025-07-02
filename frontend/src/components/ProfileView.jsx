@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import { GiCrossedSabres } from "react-icons/gi";
 import {useGlobalStateStore} from "../store/useGlobalStateStore";
 export default function ProfileView() {
-  const {toggleProfileView, profileViewActive}=useGlobalStateStore();
+  const {profileViewActive, profileViewData}=useGlobalStateStore();
 
   const handleDisable = () => {
     useGlobalStateStore.setState({profileViewActive: false});
   };
   
   return (
-    <div className={`${profileViewActive?'block':'hidden '} relative w-[350px] px-4 py-5`}>
+    <div className={`${profileViewActive?'block':'hidden '} border-l border-gray-200 relative w-[350px] px-4 py-5`}>
       {/* cross button  */}
       <button
         className="absolute top-2 right-8 text-2xl"
@@ -30,7 +30,7 @@ export default function ProfileView() {
               className="object-cover h-full w-full"
             />
           </div>
-          <h6 className="font-heading font-medium">Prashant Bartaula</h6>
+          <h6 className="font-heading font-medium">{profileViewData?.fullName}</h6>
         </div>
 
         {/* other content  */}
