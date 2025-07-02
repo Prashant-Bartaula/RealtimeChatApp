@@ -7,7 +7,6 @@ import authRoutes from './routes/authRoutes.js'
 import messageRoutes from './routes/messageRoutes.js'
 import connectDB from './utils/db.js'
 
-
 dotenv.config();
 const PORT=process.env.PORT;
 

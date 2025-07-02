@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import { axiosInstance } from "../utils/axios";
 import toast from "react-hot-toast";
+import { useAuthStore } from "./useAuthStore";
+import {useGlobalStateStore} from "./useGlobalStateStore";
 
 export const useChatStore = create((set, get) => ({
   messages: [],
@@ -21,9 +23,11 @@ export const useChatStore = create((set, get) => ({
     }
   },
   sendMessage:async(data, receiverId)=>{
+    const {messages}=get();
     try {
         const res=await axiosInstance.post(`/messages/sendMessage/${receiverId}`, data);
         toast.success(res.data.message);
+        set({messages:[...messages, data]});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       toast.error(message);
@@ -42,5 +46,24 @@ export const useChatStore = create((set, get) => ({
       set({isMessagesLoading:false});
     }
     },
+    subscribeToMessage:()=>{
+        const receiverId=useGlobalStateStore.getState().profileViewData._id;
+
+        if(!receiverId) return ;
+
+        const socket= useAuthStore.getState().socket;
+        socket.on('message', (data)=>{
+            const isMessageSentFromUser=data.senderId===receiverId;
+            if(isMessageSentFromUser) {
+              set({
+                messages:[...get().messages, data]
+              })
+            }
+        })
+    },
+    unsubscribeFromMessages: () => {
+    const socket = useAuthStore.getState().socket;
+    socket.off("newMessage");
+  },
 
 }));
