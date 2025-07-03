@@ -45,8 +45,8 @@ export default function Sidebar() {
 
           {/* active status toggle  */}
           <p className="mt-2 text-gray-400 text-sm">
-            <span className="bg-green-500 w-[10px] h-[10px] inline-block rounded-full mr-3"></span>
-            Active
+            {authUser &&   <span className="bg-green-500 w-[10px] h-[10px] inline-block rounded-full mr-3"></span>}
+            {authUser?"online":"offline"}
           </p>
         </div>
       </div>

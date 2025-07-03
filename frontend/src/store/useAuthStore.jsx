@@ -8,6 +8,7 @@ const base_url="http://localhost:5000";
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
+  onlineUsers:[],
   isSigningUp: false,
   signUpSuccess: false,
   isSigningIn: false,
@@ -89,6 +90,11 @@ export const useAuthStore = create((set, get) => ({
     
     socket.connect();
     set({socket: socket});
+
+    socket.on('getOnlineUsers', (onlineUsers)=>[
+      set({onlineUsers: onlineUsers})
+    ])
+
   },
   disconnectSocket:()=>{
      if (get().socket?.connected) get().socket.disconnect();

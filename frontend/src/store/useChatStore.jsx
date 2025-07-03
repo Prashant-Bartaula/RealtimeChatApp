@@ -15,7 +15,7 @@ export const useChatStore = create((set, get) => ({
     set({ isUsersLoading: true });
     try {
       const res = await axiosInstance.post("/messages/getUser");
-      set({ users: res.data.users });
+      set({ users: res.data.usersWithRecentMessages });
     } catch (error) {
       toast.error("something went wrong");
     } finally {
@@ -27,7 +27,7 @@ export const useChatStore = create((set, get) => ({
     try {
         const res=await axiosInstance.post(`/messages/sendMessage/${receiverId}`, data);
         toast.success(res.data.message);
-        set({messages:[...messages, data]});
+        set({messages:[...messages, res.data.data]});
     } catch (error) {
       const message = error.response?.data?.message || "Something went wrong";
       toast.error(message);
