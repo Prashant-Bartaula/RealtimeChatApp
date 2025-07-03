@@ -20,6 +20,14 @@ const userSchema = new mongoose.Schema(
       type: Array,
       default: [],
     },
+    phone:{
+      type: String,
+      default: "",
+    },
+    description:{
+      type: String,
+      default: "",
+    },
     profilePic: {
       type: String,
       default: "https://www.svgrepo.com/show/316976/profile.svg",

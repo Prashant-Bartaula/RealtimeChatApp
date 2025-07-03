@@ -89,7 +89,37 @@ export const logout=async(req, res)=>{
         })
     }
 }
+export const updateProflie=async(req, res)=>{
+    try {
+    const { fullName, description, phone } = req.body;
 
+    const userId = req.user._id;
+
+    // if (!profilePic) {
+    //   return res.status(400).json({ message: "Profile pic is required" });
+    // }
+
+    if(!fullName && !description && !phone) return res.status(400).json({message:"make some changes"});
+
+    // const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { 
+        fullName,
+        description,
+        phone
+      },
+      { new: true }
+    );
+
+    res.status(200).json(updatedUser);
+  }catch (error) {
+        console.log("Error in update profile controller", error.message);
+        res.status(500).json({
+            message:"Internal Server Error"
+        })
+    }
+}
 export const checkAuth=async(req, res)=>{
     try {
         res.status(200).json({

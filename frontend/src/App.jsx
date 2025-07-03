@@ -4,6 +4,7 @@ import {PrivateRoute} from "../src/components/PrivateRoute.jsx";
 import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import SignIn from "./pages/SignIn.jsx";
+import Setting from "./pages/Setting.jsx";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore } from "./store/useAuthStore.jsx";
 import "./index.css"
@@ -21,6 +22,7 @@ export default function App(){
       <Routes>
         <Route element={<PrivateRoute />}>
             <Route exact path='/' element={<Home/>}/>
+            <Route exact path='/setting' element={<Setting/>}/>
         </Route>
         <Route path='/sign-up' element={authUser===null?<SignUp/>:<Navigate to="/" />}/>
         <Route path='/sign-in' element={authUser===null?<SignIn/>:<Navigate to="/" />}/>
