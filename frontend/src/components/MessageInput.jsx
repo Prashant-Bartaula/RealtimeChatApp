@@ -16,7 +16,7 @@ export default function MessageInput({user}) {
       <input
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="grow max-w-[500px] bg-sky-100/30 rounded-2xl"
+        className="grow max-w-[700px]  rounded-2xl"
         type="text"
         placeholder="Type a message..."
         name="message"

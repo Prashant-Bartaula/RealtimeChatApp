@@ -4,7 +4,7 @@ import { useAuthStore } from "../store/useAuthStore"
 import { useEffect } from "react";
 
 export default function Header() {
-  const {logOut, signOutSuccess}=useAuthStore();
+  const {logOut, signOutSuccess, authUser}=useAuthStore();
   const handleLogout=()=>{
       logOut();
   }
@@ -27,7 +27,7 @@ export default function Header() {
             
         {/* profile  */}
             <div className="relative w-[40px] h-[40px] rounded-full overflow-hidden">
-                    <Link to='/setting' className="cursor-pointer"><img src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8" alt="profile-image" className="object-cover h-full w-full"/></Link>
+                    <Link to='/setting' className="cursor-pointer"><img src={authUser?.profilePic} alt="profile-image" className="object-cover h-full w-full"/></Link>
             </div>
 
         {/* logout button  */}

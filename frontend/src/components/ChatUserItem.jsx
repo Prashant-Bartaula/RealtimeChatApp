@@ -23,7 +23,7 @@ export default function ChatUserItem({user, id, handleChatClick, isSelected}) {
         {/* image wrap  */}
         <div className="flex-center w-[45px] h-[45px] rounded-full overflow-hidden">
           <img
-            src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+            src={user?.profilePic}
             alt="profile-icon"
             className="object-cover h-full w-full"
           />

@@ -25,7 +25,7 @@ export default function ProfileView() {
         <div className="flex flex-col items-center gap-5">
           <div className="flex-center w-[200px] h-[200px] rounded-full overflow-hidden">
             <img
-              src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+              src={profileViewData?.profilePic}
               alt="profile-image"
               className="object-cover h-full w-full"
             />
@@ -37,15 +37,15 @@ export default function ProfileView() {
         <div className="flex flex-col gap-4 mt-5">
             <div className="flex flex-col gap-[1px]">
                   <p className="font-body font-medium">Phone</p>
-                  <span className="text-gray-500">+91 123456789</span>
+                  <span className="text-gray-500">{profileViewData?.phone}</span>
             </div>
             <div className="flex flex-col gap-[1px]">
                   <p className="font-body font-medium">Description</p>
-                  <span className="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro illo !</span>
+                  <span className="text-gray-500">{profileViewData?.description}</span>
             </div>
             <div className="flex flex-col gap-[1px]">
                   <p className="font-body font-medium">Email</p>
-                  <span className="text-gray-500">user@gmail</span>
+                  <span className="text-gray-500">{profileViewData?.email}</span>
             </div>
         </div>
       </div>

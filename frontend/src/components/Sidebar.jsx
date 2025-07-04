@@ -30,7 +30,7 @@ export default function Sidebar() {
         {/* image wrap  */}
         <div className="flex-center w-[80px] h-[80px] rounded-full overflow-hidden">
           <img
-            src="https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8"
+            src={authUser?.profilePic}
             alt="profile-image"
             className="object-cover h-full w-full"
           />

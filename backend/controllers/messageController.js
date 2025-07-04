@@ -56,6 +56,8 @@ export const getUsers = async (req, res) => {
           _id: 1,
           fullName: 1,
           email: 1,
+          description: 1,
+          phone: 1,
           profilePic: 1,
           recentMessage: {
             text: "$recentMessage.text",
