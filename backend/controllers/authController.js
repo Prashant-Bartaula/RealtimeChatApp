@@ -2,6 +2,7 @@ import User from '../models/userModel.js'
 import bcrypt from 'bcryptjs'
 import {generateToken} from '../utils/generateToken.js'
 import cloudinary from '../utils/cloudinary.js';
+import fs from 'fs';
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
   try {
@@ -93,14 +94,17 @@ export const logout=async(req, res)=>{
 }
 export const updateProflie=async(req, res)=>{
     try {
-    const { fullName, description, phone, profilePic } = req.body;
+    const { fullName, description, phone } = req.body;
+    const filePath=req.file.path;
 
     const userId = req.user._id;
 
-    if(!profilePic) return res.status(400).json({message:"Profile picture is required"});
+    if(!filePath) return res.status(400).json({message:"Profile picture is required"});
     if(!fullName && !description && !phone) return res.status(400).json({message:"make some changes"});
 
-    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+    const uploadResponse = await cloudinary.uploader.upload(filePath, {
+      folder: "RealTimeChat",
+    });
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { 
@@ -111,6 +115,8 @@ export const updateProflie=async(req, res)=>{
       },
       { new: true }
     );
+       // Remove file after upload
+    fs.unlinkSync(filePath);
 
     res.status(200).json(updatedUser);
   }catch (error) {
